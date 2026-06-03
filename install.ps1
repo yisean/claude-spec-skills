@@ -1,4 +1,4 @@
-# 安装 spec-* skill 到用户级 Claude Code 目录（~/.claude/skills/）
+﻿# 安装 spec-* skill 到用户级 Claude Code 目录（~/.claude/skills/）
 # 用法：在本仓库根目录运行  .\install.ps1
 $ErrorActionPreference = 'Stop'
 

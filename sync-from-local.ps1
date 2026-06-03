@@ -1,4 +1,4 @@
-# 把本机 ~/.claude/skills/spec-* 的最新内容同步回本分发仓库（维护者用）
+﻿# 把本机 ~/.claude/skills/spec-* 的最新内容同步回本分发仓库（维护者用）
 # 用法：
 #   .\sync-from-local.ps1                      只同步+暂存，显示改动
 #   .\sync-from-local.ps1 -Message "feat: ..."  同步并提交
