@@ -90,6 +90,15 @@ clone 本仓库后，在仓库根目录运行：
 
 重新 `git pull` 本仓库后，再跑一次安装脚本（脚本用 `-Force` / 覆盖复制，会更新到最新）。
 
+## 维护者：从本机同步
+
+维护者改完本机 `~/.claude/skills/spec-*` 后，用同步脚本把最新内容回灌到本仓库并提交：
+
+- **Windows**：`.\sync-from-local.ps1 -Message "feat: ..." -Push`
+- **macOS / Linux**：`./sync-from-local.sh "feat: ..." --push`
+
+不带参数时只复制+暂存并显示改动（便于先 review 再提交）。
+
 ## 卸载
 
 删除 `~/.claude/skills/` 下（或项目 `.claude/skills/` 下）的 `spec-prd`、`spec-prototype`、`spec-plan`、`spec-change` 四个目录，重启 Claude Code。
