@@ -71,7 +71,7 @@ argument-hint: "[原始需求 / 特性意图，可留空由我追问]"
 
 写到 `docs/product/prd/YYYY-MM-DD-NNN-<slug>.md`，含：
 
-- **frontmatter**：`title` / `status: active` / `date` / `origin`（指向 brainstorm 原稿，若有）。
+- **frontmatter**：`title` / `status: active` / `date` / `origin`。`origin` 记来源：有 brainstorm 写其 repo-relative 路径（如 `docs/product/brainstorms/2026-06-03-xxx-requirements.md`）；无 brainstorm 直接定稿时写来源简述（如 `直接需求` / `客户口头需求` / `线上反馈`），不要留空也不要瞎指一个文件。
 - **正文九要素**（workflow 阶段 1 完成标准）：
   1. 背景与问题　2. 目标 / **非目标**　3. 用户与角色　4. 关键决策
   5. **带编号的功能需求**（按上「编号约定」用 `R/F`，续编不重排）
