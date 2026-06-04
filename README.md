@@ -2,14 +2,15 @@
 
 一套 spec-driven（规范驱动）的 Claude Code skill，把研发流程「**需求 → 原型 → 计划+设计 → 变更**」固化为可复用命令。跨项目通用：每个 skill 优先读取项目自身的流程文档（`docs/engineering/workflow.md`、`prototype/_spec.md`、`docs/README.md`、`CLAUDE.md`）作为单一事实源，新项目则用内置默认规范。
 
-## 四个 skill
+## 五个 skill
 
 | 命令 | 阶段 | 输入 → 输出 | 落点 |
 | --- | --- | --- | --- |
-| `/spec-prd` | 需求 | 原始需求 → 规范化 PRD（R/F 需求编号 + AE/AC 验收） | `docs/product/prd/` |
+| `/spec-prd` | 需求 | 原始需求 → 规范化 PRD（R/F 需求编号 + AE/AC 验收 + 覆盖矩阵） | `docs/product/prd/` |
 | `/spec-prototype` | 原型 | PRD → 纯静态可点击原型（仿 Element-UI、零依赖） | `docs/engineering/prototype/` |
 | `/spec-plan` | 计划+设计 | PRD + 原型 → 含设计的实现计划（概要设计 + ER 模型 + 详细设计 + 任务 + migration） | `docs/engineering/plans/` |
 | `/spec-change` | 变更（横切） | 任意改动 → 先回流 PRD→原型→plan，最后改代码 | 沿同一 `NNN` 改各产出物 |
+| `/spec-check` | 校验（横切，只读） | 同一 `NNN` 的 PRD/原型/plan → 覆盖矩阵一致性体检报告 | 不改文件，只出报告 |
 
 ## 术语
 
@@ -34,6 +35,7 @@
    │  /spec-plan                 ③ 计划+设计：PRD+原型 → 概要设计+ER+详细设计+任务
    ▼
  plan
+   │  /spec-check                横切：开发/评审/提交前体检覆盖矩阵（只读，找断链与悬空）
    │  /ce-work                   ④ 开发：按 plan 实现（规范靠 CLAUDE.md 自动注入）
    │  /code-review               ⑤ 评审：（深度 /ce-code-review；清理 /simplify）
    │  /verify · /ce-test-browser ⑥ 测试：按 AE/AC 逐条验
@@ -46,7 +48,7 @@
 
 ## 前置依赖
 
-本套件**核心的四个 `spec-*`**（需求/原型/计划+设计/变更）可**独立运行**，不强依赖任何插件。
+本套件**核心的五个 `spec-*`**（需求/原型/计划+设计/变更/校验）可**独立运行**，不强依赖任何插件。
 
 但若要跑**完整流水线**，需先安装 [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) 插件——它提供链路 ④–⑦ 调用的 `ce-*` 命令，以及 `/spec-prd` 阶段可选的 `/ce-brainstorm`、`/ce-doc-review`：
 
@@ -84,30 +86,30 @@ clone 本仓库后，在仓库根目录运行：
   ./install.sh
   ```
 
-脚本会把四个 `spec-*` 目录复制到 `~/.claude/skills/`。
+脚本会把五个 `spec-*` 目录复制到 `~/.claude/skills/`。
 
 ### 方式 B：项目级（团队随仓库共享）
 
-把四个 skill 目录复制到目标项目的 `.claude/skills/` 下并提交：
+把五个 skill 目录复制到目标项目的 `.claude/skills/` 下并提交：
 
 - **Windows**：
   ```powershell
-  Copy-Item -Recurse -Force .\spec-prd, .\spec-prototype, .\spec-plan, .\spec-change <目标项目>\.claude\skills\
+  Copy-Item -Recurse -Force .\spec-prd, .\spec-prototype, .\spec-plan, .\spec-change, .\spec-check <目标项目>\.claude\skills\
   ```
 - **macOS / Linux**：
   ```bash
   mkdir -p <目标项目>/.claude/skills
-  cp -R spec-prd spec-prototype spec-plan spec-change <目标项目>/.claude/skills/
+  cp -R spec-prd spec-prototype spec-plan spec-change spec-check <目标项目>/.claude/skills/
   ```
 
 ### 方式 C：手动
 
-把 `spec-prd/`、`spec-prototype/`、`spec-plan/`、`spec-change/` 四个目录（每个含 `SKILL.md`）放到
+把 `spec-prd/`、`spec-prototype/`、`spec-plan/`、`spec-change/`、`spec-check/` 五个目录（每个含 `SKILL.md`）放到
 `~/.claude/skills/`（用户级）或 `<repo>/.claude/skills/`（项目级）即可。
 
 ### 生效
 
-安装后 **重启 Claude Code**，斜杠菜单即出现 `/spec-prd` 等命令。验证：在 Claude Code 里输入 `/spec-` 应能补全到四个命令。
+安装后 **重启 Claude Code**，斜杠菜单即出现 `/spec-prd` 等命令。验证：在 Claude Code 里输入 `/spec-` 应能补全到五个命令。
 
 ## 更新
 
@@ -124,7 +126,7 @@ clone 本仓库后，在仓库根目录运行：
 
 ## 卸载
 
-删除 `~/.claude/skills/` 下（或项目 `.claude/skills/` 下）的 `spec-prd`、`spec-prototype`、`spec-plan`、`spec-change` 四个目录，重启 Claude Code。
+删除 `~/.claude/skills/` 下（或项目 `.claude/skills/` 下）的 `spec-prd`、`spec-prototype`、`spec-plan`、`spec-change`、`spec-check` 五个目录，重启 Claude Code。
 
 ## 设计原则
 

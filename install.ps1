@@ -6,7 +6,7 @@ $dest = Join-Path $HOME '.claude\skills'
 New-Item -ItemType Directory -Force -Path $dest | Out-Null
 
 $src = $PSScriptRoot
-$skills = 'spec-prd', 'spec-prototype', 'spec-plan', 'spec-change'
+$skills = 'spec-prd', 'spec-prototype', 'spec-plan', 'spec-change', 'spec-check'
 
 foreach ($name in $skills) {
     $from = Join-Path $src $name
@@ -17,4 +17,4 @@ foreach ($name in $skills) {
 
 Write-Host ""
 Write-Host "完成。已安装到 $dest" -ForegroundColor Green
-Write-Host "请重启 Claude Code，然后输入 /spec- 验证四个命令是否出现。"
+Write-Host "请重启 Claude Code，然后输入 /spec- 验证五个命令是否出现。"
