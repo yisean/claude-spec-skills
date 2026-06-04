@@ -44,6 +44,29 @@
 
 > 规律：**产物是「独有格式的文档」→ 用本套件 `spec-*`；产物是代码/PR/评审这类通用产物 → 复用 compound-engineering 的 `ce-*`**。④–⑦ 不需要自建 skill。
 
+## 前置依赖
+
+本套件**核心的四个 `spec-*`**（需求/原型/计划+设计/变更）可**独立运行**，不强依赖任何插件。
+
+但若要跑**完整流水线**，需先安装 [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) 插件——它提供链路 ④–⑦ 调用的 `ce-*` 命令，以及 `/spec-prd` 阶段可选的 `/ce-brainstorm`、`/ce-doc-review`：
+
+| 用到 compound-engineering 的地方 | 涉及命令 | 是否必需 |
+| --- | --- | --- |
+| ④ 开发 | `/ce-work`、`/ce-worktree` | 跑完整流水线时必需 |
+| ⑤ 评审（深度） | `/ce-code-review` | 可选（也可只用内置 `/code-review`、`/simplify`） |
+| ⑥ 测试（前端） | `/ce-test-browser` | 可选 |
+| ⑦ 合并 | `/ce-commit-push-pr` | 跑完整流水线时必需 |
+| ① 需求（增强） | `/ce-brainstorm`、`/ce-doc-review` | 可选 |
+
+安装（在 Claude Code 里执行）：
+
+```
+/plugin marketplace add EveryInc/compound-engineering-plugin
+/plugin install compound-engineering
+```
+
+> 若你的 compound-engineering 来自其它市场/仓库，把上面的市场地址换成实际来源即可。只用 `spec-*` 写文档、不跑 ④–⑦ 的话，可跳过本节。
+
 ## 安装
 
 skill 装到 **用户级**（`~/.claude/skills/`，本机所有项目可用）或**项目级**（`<repo>/.claude/skills/`，随该仓库共享给团队）。二选一。
