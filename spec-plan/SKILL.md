@@ -18,7 +18,7 @@ PRD 的功能需求用 **R/F** 编号、验收用 **AE/AC** 编号（详见 `/sp
 
 ## 核心原则
 
-1. **单一事实源** — 项目的 `docs/engineering/workflow.md` 阶段 3「完成标准」是最高约束；本 skill 内置默认值，项目文档存在时以其为准。
+1. **单一事实源** — 优先级 `docs/engineering/constitution.md`（工程宪法 / 原则）> `docs/engineering/workflow.md` 阶段 3「完成标准」> 本 skill 内置默认值；项目文档存在时以其为准。
 2. **同序号串联** — plan 复用与 PRD **完全相同**的 `YYYY-MM-DD-NNN`，`prd/…-NNN-*` ↔ `plans/…-NNN-*` 一眼对应。
 3. **设计先于拆分** — 先定架构与数据模型（概要 + ER），任务才拆得准；详细设计落到每个单元。
 4. **任务可独立认领** — 每个单元标注 Files / Dependencies / Patterns to follow / 接口签名 / 核心逻辑，并映射它实现的 `R/F` 和验证它的 `AE/AC`。

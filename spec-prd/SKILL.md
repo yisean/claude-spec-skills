@@ -37,7 +37,7 @@ argument-hint: "[原始需求 / 特性意图，可留空由我追问]"
 
 ## 核心原则（compound-engineering）
 
-1. **单一事实源** — 项目自己的 `docs/engineering/workflow.md` 与 `docs/README.md` 是最高约束；本 skill 内置默认值，项目文档存在时以其为准。
+1. **单一事实源** — 优先级 `docs/engineering/constitution.md`（工程宪法 / 原则）> `docs/engineering/workflow.md`（流程与阶段标准）> `docs/README.md` > 本 skill 内置默认值。下面各条原则是宪法的精简内置版，项目文档存在时以其为准。
 2. **双向可追溯** — 见上「编号约定」。
 3. **右尺寸** — 简单清晰的需求少追问、直接定稿；模糊或跨切的需求才多轮澄清。
 4. **显式非目标** — 必须写清「这次不做什么」，避免范围蔓延。
@@ -58,10 +58,11 @@ argument-hint: "[原始需求 / 特性意图，可留空由我追问]"
 ### Phase 0 · 加载约定 + 判定增量/新特性
 
 1. 读以下文件（存在才读，作为单一事实源）：
+   - `docs/engineering/constitution.md` —— 工程宪法（不可妥协原则），最高优先级。
    - `docs/engineering/workflow.md` —— 阶段 1「完成标准」与「命名与追溯约定」。
    - `docs/README.md` —— 目录结构与文件命名。
    - `docs/product/prd/` 现有 PRD —— 确定下一个 `NNN` 序号、沿用既有编号字母（R 还是 F）。
-   - 若都不存在（新项目）→ 用本 skill 的内置默认约定，并提示：「该项目还没有 docs 流程骨架，要不要我先建 `docs/product/prd|brainstorms`、`docs/engineering/prototype|plans`？」
+   - 若都不存在（新项目）→ 用内置默认约定，并提示：「该项目还没有 docs 流程骨架，要不要我先建 `docs/product/prd|brainstorms`、`docs/engineering/prototype|plans`，并用本 skill 的 `templates/constitution.md` 初始化 `docs/engineering/constitution.md`（工程宪法）？」
 2. **判定**：本需求是「已有特性的增量改动」还是「全新特性」？
    - 属于某个已有 PRD 的主题 → **停下**，告知这是变更，建议改用 `/spec-change`（复用原 `NNN`、续编 `R/F`、就地扩 PRD）。
    - 全新特性 → 取新序号 `NNN = 现有最大序号 + 1`。

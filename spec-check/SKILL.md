@@ -34,7 +34,7 @@ argument-hint: "[NNN 序号 / PRD 路径 / 特性名，可留空由我取最近 
    - `docs/engineering/prototype/`（涉及界面的页面 + `index.html`）
    - `docs/engineering/plans/…-NNN-*.md`
    - `docs/ops/install/migration-*.sql`
-3. 读 `docs/engineering/workflow.md` 的「命名与追溯约定」（存在则以其为最高判据，覆盖下面的内置默认）。
+3. 读 `docs/engineering/constitution.md`（工程宪法 / 原则）与 `docs/engineering/workflow.md`（命名与追溯约定）作为最高判据（存在则覆盖下面的内置默认）。
 
 ### Phase 1 · 抽取编号与映射
 

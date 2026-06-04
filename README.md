@@ -21,6 +21,14 @@
 
 铁律：**续编不重排**；每条 AE/AC 标注覆盖的 R/F；可追溯链 `R/F → plan 任务 → AE/AC`，并落成**覆盖矩阵**随文档自检。
 
+## 项目宪法（constitution）
+
+项目级**原则的单一来源**：`docs/engineering/constitution.md`。它集中沉淀这套方法的不可妥协原则（单一事实源、先文档后代码、续编不重排、覆盖矩阵、显式非目标/NFR、右尺寸、阶段交接），五个 skill 执行前都读它并以它为准——各 skill 的「核心原则」只是它的精简内置默认。
+
+- **优先级**：`constitution.md`（原则）> `docs/engineering/workflow.md`（流程/阶段标准）> skill 内置默认。
+- **初始化**：新项目跑 `/spec-prd` 时会提示用 `spec-prd/templates/constitution.md` 生成 `docs/engineering/constitution.md`；也可手动复制该模板。
+- **演进**：通过 PR/评审修订，提升其 `version`。
+
 ## 链路与阶段命令
 
 ```
@@ -131,3 +139,5 @@ clone 本仓库后，在仓库根目录运行：
 ## 设计原则
 
 单一事实源 · 双向可追溯（R/F→任务→AE/AC，落成覆盖矩阵自检）· 非功能约束显式 · 高风险需求用可测句式（EARS 风格）· 模板外置（产出物骨架放各 skill 的 `templates/`，SKILL.md 渐进披露）· 右尺寸（简单需求少追问）· 一次一问澄清 · 回流写回（先文档后代码）· 阶段交接（每个 skill 指向下一个）。
+
+> 以上原则的规范来源是项目的 `docs/engineering/constitution.md`（工程宪法，由 `/spec-prd` 初始化）——各 skill 引用它，而非各自硬编码。
