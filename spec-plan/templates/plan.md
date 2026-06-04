@@ -61,6 +61,7 @@ erDiagram
 - **Dependencies**：〔依赖哪个单元先完成〕
 - **Patterns to follow**：〔参照现有哪段代码的写法/分层〕
 - **原型页面**（前端/界面任务必填）：〔docs/engineering/prototype/<page>.html，UI 以原型为准；偏离先走 /spec-change 改原型〕
+- **Execution note**（前端/界面任务必填）：用 `/ce-frontend-design` 方法论实现，收尾前按其要求截图自检设计保真度〔纯后端/逻辑单元留空或写执行姿态，如 test-first / characterization-first〕
 - **详细设计**：〔关键接口签名、核心算法/判定逻辑、必要时序（资格判定、并发占名额等复杂点写清）〕
 - **覆盖需求**：〔实现哪些 R/F〕
 - **Test scenarios**：〔对应哪些 AE/AC，怎么验〕

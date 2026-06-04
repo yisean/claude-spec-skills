@@ -57,6 +57,7 @@ PRD 的功能需求用 **R/F** 编号、验收用 **AE/AC** 编号（详见 `/sp
 - **Dependencies**：依赖哪个单元先完成。
 - **Patterns to follow**：参照现有哪段代码的写法/分层。
 - **原型页面**（前端/界面任务必填）：对应 `docs/engineering/prototype/<page>.html`，作为该任务的 **UI 验收基线，以原型为准**；偏离需先走 `/spec-change` 改原型。
+- **Execution note**（前端/界面任务必填）：标注 `用 /ce-frontend-design 方法论实现，收尾前按其要求截图自检设计保真度`。`ce-work` 执行时会读此字段，从而把原型从「Element-UI 草图」落成有设计质量的真实前端；纯后端/逻辑单元留空或写其执行姿态（如 test-first）。
 - **详细设计**：关键接口签名、核心算法/判定逻辑、必要时序（资格判定、并发占名额等复杂点要写清）。
 - **覆盖需求**：实现哪些 `R/F`。
 - **Test scenarios**：对应哪些 `AE/AC`，怎么验。
@@ -81,7 +82,7 @@ PRD 的功能需求用 **R/F** 编号、验收用 **AE/AC** 编号（详见 `/sp
 
 输出计划路径、任务清单与依赖顺序。然后提示按 `docs/engineering/workflow.md` 继续：
 
-- **阶段 4 开发** → `/ce-work` 驱动，先开特性分支；并行/复杂特性用 `/ce-worktree`。改动需求范围时**先回流 `/spec-change`**。
+- **阶段 4 开发** → `/ce-work` 驱动，先开特性分支；并行/复杂特性用 `/ce-worktree`。前端/界面单元已带 `Execution note`，`ce-work` 会据此自动套用 `/ce-frontend-design`。改动需求范围时**先回流 `/spec-change`**。
 - **阶段 5 评审** → `/code-review`（可 `--fix`/`--comment`）；深度用 `/ce-code-review`；纯质量清理 `/simplify`。
 - **阶段 6 测试** → 拿 PRD 的 `AE/AC` 逐条验；`/verify` 跑应用；前端 `/ce-test-browser`。
 - **阶段 7 合并** → `/ce-commit-push-pr`；合并后把本 plan 的 `status` 更新为 `done`。
