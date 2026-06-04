@@ -52,6 +52,7 @@ argument-hint: "[变更内容描述，或受影响的特性/PRD]"
 
 ### Phase 3 · 验收与提交
 
+- **更新覆盖矩阵**：把本次续编的 `R/F` / `AE/AC` / 实现单元补进 PRD 与 plan 的覆盖矩阵，确认新需求都有验收、新验收都挂到需求、无悬空、无重排。
 - 按新增/变更的 `AE/AC` 逐条验证。
 - **提交分开打、用对 type**：文档变更 `docs(prd)` / `docs(brainstorm)`，代码 `feat` / `fix`。
   （参考一次真实变更的提交序列：`docs(brainstorm): …需求文档` → `feat: …` → `docs(prd): …（§X 增量）`。）
