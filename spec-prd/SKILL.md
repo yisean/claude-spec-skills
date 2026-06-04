@@ -74,17 +74,10 @@ argument-hint: "[原始需求 / 特性意图，可留空由我追问]"
 
 ### Phase 2 · 生成 PRD
 
-写到 `docs/product/prd/YYYY-MM-DD-NNN-<slug>.md`，含：
+**先用 Read 读取本 skill 目录下的 `templates/prd.md`**（PRD 骨架模板，含 frontmatter + 各节占位 + 可测句式提示），按它逐节填充，写到 `docs/product/prd/YYYY-MM-DD-NNN-<slug>.md`。要点（模板没读到时按此兜底）：
 
-- **frontmatter**：`title` / `status: active` / `date` / `origin`。`origin` 记来源：有 brainstorm 写其 repo-relative 路径（如 `docs/product/brainstorms/2026-06-03-xxx-requirements.md`）；无 brainstorm 直接定稿时写来源简述（如 `直接需求` / `客户口头需求` / `线上反馈`），不要留空也不要瞎指一个文件。
-- **正文九要素**（workflow 阶段 1 完成标准）：
-  1. 背景与问题　2. 目标 / **非目标**　3. 用户与角色　4. 关键决策
-  5. **带编号的功能需求**（按上「编号约定」用 `R/F`，续编不重排）
-  6. **可验收的验收标准**（`AE/AC`，每条标注覆盖的需求号）
-  7. 成功指标　8. 依赖与假设　9. 待解决问题
-- **另加两项**（让需求可测、可校验）：
-  - **非功能约束**：性能 / 并发 / 安全与权限 / 可用性 / 兼容性等；没有就显式写「无特殊要求」，避免默认遗漏。
-  - **覆盖矩阵**：`R/F` × `AE/AC` 一张表（生成规则见 Phase 3），随 PRD 一起落盘。
+- **frontmatter `origin`**：有 brainstorm 写其 repo-relative 路径（如 `docs/product/brainstorms/2026-06-03-xxx-requirements.md`）；无则写来源简述（`直接需求` / `客户口头需求` / `线上反馈`），不留空、不瞎指文件。
+- **正文结构**：背景 → 目标/**非目标** → 用户与角色 → 关键决策 → **功能需求**（`R/F`，续编不重排）→ **非功能约束**（无则写「无特殊要求」）→ **验收标准**（`AE/AC`，每条标注覆盖的需求号）→ **覆盖矩阵**（生成规则见 Phase 3）→ 成功指标 → 依赖与假设 → 待解决问题。
 - 全部用 **repo-relative 路径**引用文件，不用绝对路径。
 
 ### Phase 3 · 自检（覆盖矩阵）+ 可选评审
