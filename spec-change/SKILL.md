@@ -1,6 +1,6 @@
 ---
 name: spec-change
-description: '统管需求变更的回流：把对已有特性的任何改动按「先文档后代码」的铁律同步回 PRD → 原型 → plan，复用原 NNN、续编 R/F 与 AE/AC、不重排。Use when 客户/内部对已上线或在研特性提出改动、原型评审后要变更需求、开发中发现需求漏洞要回流。全新特性请改用 /spec-prd。'
+description: '统管需求变更的回流：把对已有特性的任何改动按「先文档后代码」的铁律同步回 PRD → 原型 → 设计 → plan，复用原 NNN、续编 R/F 与 AE/AC、不重排。Use when 客户/内部对已上线或在研特性提出改动、原型评审后要变更需求、开发中发现需求漏洞要回流。全新特性请改用 /spec-prd。'
 argument-hint: "[变更内容描述，或受影响的特性/PRD]"
 ---
 
@@ -11,7 +11,7 @@ argument-hint: "[变更内容描述，或受影响的特性/PRD]"
 这是横切流水线的**变更管理** skill。它不引入新阶段，而是保证任何改动都遵守两条铁律：
 
 > **铁律一**（workflow 全景）：允许阶段回流，但**产出物要同步更新，保持单一事实源**。
-> **铁律二**（workflow 阶段 4）：**改动需求范围时，先回流更新 PRD/plan，再继续写代码。**
+> **铁律二**（workflow 开发阶段）：**改动需求范围时，先回流更新 PRD/设计/plan，再继续写代码。**
 
 ## 术语提示
 
@@ -37,6 +37,7 @@ argument-hint: "[变更内容描述，或受影响的特性/PRD]"
 - `docs/product/prd/…-NNN-*.md`（要回流的 PRD）
 - `docs/product/brainstorms/`（可选：先开一份带日期的增量探讨稿，如 `YYYY-MM-DD-<slug>-requirements.md`）
 - `docs/engineering/prototype/`（涉及界面的页面）
+- `docs/engineering/design/…-NNN-*.md`（技术设计：架构/接口/ER/详细设计）
 - `docs/engineering/plans/…-NNN-*.md`（实现计划）
 
 ### Phase 2 · 按顺序回流（铁律：自上而下）
@@ -47,8 +48,9 @@ argument-hint: "[变更内容描述，或受影响的特性/PRD]"
    - 补/调 `AE/AC`，每条标注覆盖的需求号。
    - 同步「目标/非目标/待解决问题」如有变化。
 2. **改原型**（涉及界面才做）：按 `/spec-prototype` 与 `prototype/_spec.md` 更新对应页面，并保持入口在 `index.html`。
-3. **改 plan**：在原 plan 补/改 Implementation Units，更新追溯映射；DB 变化落 `docs/ops/install/migration-YYYY-<特性名>.sql`。
-4. **最后改代码**：在特性分支按更新后的 plan 实现。
+3. **改设计**（涉及架构/接口/数据模型才做）：按 `/spec-design` 更新 `docs/engineering/design/…-NNN-*` 的概要设计/ER/详细设计，保持与续编后的 `R/F` 对齐。
+4. **改 plan**：在原 plan 补/改 Implementation Units，更新追溯映射与单元的「设计依据」；DB 变化落 `docs/ops/install/migration-YYYY-<特性名>.sql`，与设计 ER 一致。
+5. **最后改代码**：在特性分支按更新后的 plan 实现。
 
 ### Phase 3 · 验收与提交
 

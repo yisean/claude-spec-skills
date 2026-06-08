@@ -1,0 +1,69 @@
+---
+name: spec-design
+description: '以已定稿 PRD + 原型为输入，做技术设计：概要设计（架构/模块/技术选型/关键决策/接口清单/NFR 承接/风险）、数据 ER 模型（Mermaid）、详细设计（按模块/接口/关键流程组织，写接口签名与核心逻辑），写入 docs/engineering/design/。Use when PRD 与原型已确认、要先把架构与数据模型定下来，产出供 /spec-plan 拆任务。设计复用与 PRD 相同的 NNN 序号；任务拆分与 migration 在 /spec-plan。'
+argument-hint: "[目标 PRD 路径或特性名，可留空由我识别最近的 PRD]"
+---
+
+# 设计阶段：PRD + 原型 → 技术设计
+
+**当前年份 2026**。
+
+流水线**第 3 阶段（设计）**，回答 **HOW 的结构层**：定整体**架构**、**数据模型**、以及关键接口与流程的**详细设计**。上游是 `/spec-prd`（+ `/spec-prototype`），下游是 `/spec-plan`（据本设计拆任务、写 migration、出覆盖矩阵）。
+
+> **设计是计划的前提**：先把架构与数据模型定准，`/spec-plan` 才拆得准任务。设计与计划**分两份文档但同 `NNN` 串联**——设计回答「系统长什么样」，计划回答「谁按什么顺序建」。需求层面的改动回流 `/spec-change`，不在 design 里临时发明需求。
+
+## 术语提示
+
+PRD 的功能需求用 **R/F** 编号、验收用 **AE/AC** 编号（详见 `/spec-prd` 术语表）。设计承上启下：把 `R/F`（要做什么）接成**可实现的结构**（架构 / 接口 / 数据 / 流程），供 `/spec-plan` 的实现单元 `U` 引用、被 `AE/AC` 验证。
+
+## 核心原则
+
+1. **单一事实源** — 优先级 `docs/engineering/constitution.md`（工程宪法 / 原则）> `docs/engineering/workflow.md` 阶段 3「完成标准」> 本 skill 内置默认值；项目文档存在时以其为准。
+2. **同序号串联** — design 复用与 PRD **完全相同**的 `YYYY-MM-DD-NNN`，`prd/…-NNN-*` ↔ `design/…-NNN-*` ↔ `plans/…-NNN-*` 一眼对应。
+3. **设计先于拆分** — 先定架构与数据模型（概要 + ER），详细设计落到**模块 / 接口 / 关键流程**（不是实现单元——那是 `/spec-plan` 的事），供 plan 引用。
+4. **数据是逻辑视图** — ER 模型是**逻辑视图**；物理 migration sql 在 `/spec-plan` 落地，二者逐字段一致，本设计是其唯一逻辑来源。
+5. **NFR 落到设计手段** — PRD 的每条非功能约束（性能/并发/安全权限/兼容性）→ 一个具体设计手段或校验点，不让 NFR 停在 PRD 里。
+
+## 执行流程
+
+### Phase 0 · 加载输入
+
+1. 读 `docs/engineering/workflow.md` 阶段 3 与「命名与追溯约定」。
+2. 读目标 PRD（`$ARGUMENTS` 指定，或 `docs/product/prd/` 最近 `status: active` 的一份），取其 `NNN` 与全部 `R/F`、`AE/AC`、非功能约束。
+3. 读对应原型页面（`docs/engineering/prototype/`），作为接口与交互设计的 UI 依据。
+4. 扫相关代码与现有数据库脚本（`docs/ops/install/`），识别要改的表/接口/页面与既有模式（Patterns），让设计贴合现状。
+
+### Phase 1 · 概要设计
+
+确定整体技术方案，写清：
+- **架构与模块划分**：本特性涉及的后端模块/前端页面/外部依赖，以及它们的协作关系。
+- **技术选型与关键决策**：选了什么、为什么、放弃了什么备选（决策要可追溯）。
+- **接口清单**：新增/变更的接口（path、方法、入参出参概述），与覆盖的 `R/F` 对应。
+- **非功能约束承接**：把 PRD 的每条 NFR（性能/并发/安全权限/兼容性）落到具体设计手段或校验点。
+- **风险与回滚**：高风险点、并发/权限/性能注意项。
+
+### Phase 2 · 数据 ER 模型
+
+把数据设计画成 **Mermaid `erDiagram`**（逻辑视图）：实体、关系、关键字段、主外键、唯一约束都要体现。**可填骨架与 `erDiagram` 示例见本 skill 目录 `templates/design.md` 的「数据 ER 模型」节**。ER 是**逻辑视图**，是 `/spec-plan` 物理 migration sql 的唯一逻辑来源，二者须逐字段一致。
+
+### Phase 3 · 详细设计
+
+把概要设计展开到可实现的颗粒度，**按模块 / 接口 / 关键流程组织**（不要按实现单元 `U` 切——拆单元是 `/spec-plan` 的职责，那里会反过来引用本节）：
+- **关键接口签名**：入参出参类型、错误码/异常约定。
+- **核心算法 / 判定逻辑**：资格判定、状态机、计算规则等。
+- **必要时序**：复杂交互（如资格判定、并发占名额、回滚补偿）画清调用顺序与边界条件。
+- 每段详细设计**标注它服务的 `R/F`**，便于 plan 拆单元时按需求对齐、被 `AE/AC` 验证。
+
+### Phase 4 · 写设计文件
+
+**先用 Read 读取本 skill 目录下的 `templates/design.md`**（设计骨架），按骨架填充。写到 `docs/engineering/design/YYYY-MM-DD-NNN-<type>-<slug>-design.md`（`<type>` 常用 `feat/fix/refactor`，与 PRD 同 `NNN`）。结构（模板没读到时按此兜底）：
+- **frontmatter**：`title` / `type` / `status: active` / `date` / `origin`（指向对应 PRD）。
+- 正文：Summary → Problem Frame → **概要设计**（Phase 1）→ **数据 ER 模型**（Phase 2 的 mermaid）→ **详细设计**（Phase 3，按模块/接口/流程）。
+
+### Phase 5 · 交接（进入计划阶段）
+
+输出设计文件路径与关键决策摘要。然后提示下一步：
+
+- **阶段 4 计划** → `/spec-plan`：据本设计把方案拆成可独立认领的实现单元、定依赖顺序、写 DB migration（与本设计的 ER 逐字段一致）、出三向覆盖矩阵。
+- 改动需求范围（新增/调整 `R/F`）→ **先回流 `/spec-change`** 改 PRD（必要时原型），再回到本 skill 同步设计。
+- 想确认 PRD/原型/设计是否对得上 → `/spec-check`（只读体检覆盖矩阵与跨文档一致性）。

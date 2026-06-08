@@ -1,6 +1,6 @@
 -- migration-<YYYY>-<特性名>.sql
 -- 落点：docs/ops/install/migration-<YYYY>-<特性名>.sql
--- 对应 plan 的「数据 ER 模型」，与之逐字段一致。
+-- 对应设计文档（docs/engineering/design/…-NNN-*）的「数据 ER 模型」，与之逐字段一致。
 -- 安全性：<能否重复执行幂等 / 加字段是否阻塞大表 / 索引是否在线创建>
 -- 回滚：<对应的 down 操作或回滚说明>
 

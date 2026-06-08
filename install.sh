@@ -7,7 +7,7 @@ dest="$HOME/.claude/skills"
 mkdir -p "$dest"
 
 src="$(cd "$(dirname "$0")" && pwd)"
-skills="spec-prd spec-prototype spec-plan spec-change spec-check"
+skills="spec-prd spec-prototype spec-design spec-plan spec-change spec-check"
 
 for name in $skills; do
   if [ ! -d "$src/$name" ]; then
@@ -20,4 +20,4 @@ done
 
 echo ""
 echo "完成。已安装到 $dest"
-echo "请重启 Claude Code，然后输入 /spec- 验证五个命令是否出现。"
+echo "请重启 Claude Code，然后输入 /spec- 验证六个命令是否出现。"

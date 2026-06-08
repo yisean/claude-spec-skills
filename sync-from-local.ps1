@@ -11,7 +11,7 @@ $ErrorActionPreference = 'Stop'
 
 $repo   = $PSScriptRoot
 $srcDir = Join-Path $HOME '.claude\skills'
-$skills = 'spec-prd', 'spec-prototype', 'spec-plan', 'spec-change', 'spec-check'
+$skills = 'spec-prd', 'spec-prototype', 'spec-design', 'spec-plan', 'spec-change', 'spec-check'
 
 foreach ($name in $skills) {
     $from = Join-Path $srcDir $name
