@@ -8,7 +8,7 @@ set -euo pipefail
 
 repo="$(cd "$(dirname "$0")" && pwd)"
 src="$HOME/.claude/skills"
-skills="spec-prd spec-prototype spec-plan spec-change spec-check"
+skills="spec-prd spec-prototype spec-design spec-plan spec-change spec-check"
 
 message="${1:-}"
 push=""

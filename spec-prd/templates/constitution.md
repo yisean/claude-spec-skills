@@ -37,4 +37,4 @@ date: <YYYY-MM-DD，如 2026-06-04>
 
 ## skill 与宪法的关系
 
-`/spec-prd`（需求）· `/spec-prototype`（原型）· `/spec-plan`（计划+设计）· `/spec-change`（变更回流）· `/spec-check`（覆盖矩阵体检）—— 全部以本宪法为**原则基线**、以 `docs/engineering/workflow.md` 为**流程基线**。
+`/spec-prd`（需求）· `/spec-prototype`（原型）· `/spec-design`（技术设计）· `/spec-plan`（任务计划）· `/spec-change`（变更回流）· `/spec-check`（覆盖矩阵体检）—— 全部以本宪法为**原则基线**、以 `docs/engineering/workflow.md` 为**流程基线**。
