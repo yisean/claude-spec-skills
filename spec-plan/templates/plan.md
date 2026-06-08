@@ -18,7 +18,11 @@ origin: <对应设计文档路径，如 docs/engineering/design/2026-06-04-NNN-x
 〔链接 `docs/engineering/design/<YYYY>-<MM>-<DD>-NNN-<slug>-design.md`；架构、接口清单、数据 ER、详细设计都在设计文档，这里只引用，不重抄。缺设计先跑 /spec-design〕
 
 ## DB 迁移
-〔引用 `docs/ops/install/migration-<YYYY>-<特性名>.sql`；建表/加字段/索引/唯一键/种子数据 + 安全性与回滚方式。须与设计文档的 ER 模型逐字段一致。骨架见本目录 `migration.sql`〕
+〔引用 `docs/ops/install/migration-<YYYY>-<特性名>.sql`；建表/加字段/索引/唯一键/种子数据。须与设计文档的 ER 模型逐字段一致。骨架见本目录 `migration.sql`〕
+
+两条强制规约：
+- **回滚段必填**：脚本含 up + 对应的回滚/down，并注明会丢什么数据、是否需先备份（无 schema 变更时写「无」）。
+- **时间戳落地**：业务表带创建/更新时间戳两列（沿用项目惯例命名）；豁免表注明原因。
 
 ## Requirements 映射 + 覆盖矩阵
 | 需求 | 实现单元 | 验收 |

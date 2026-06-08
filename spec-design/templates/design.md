@@ -39,10 +39,13 @@ erDiagram
         bigint slot_id FK
         bigint depart_id FK
         string booker
-        datetime booked_at
+        datetime create_time
+        datetime update_time
     }
 ```
 > ER 是逻辑视图，是 `/spec-plan` 物理 migration（建表脚本）的唯一逻辑来源，二者逐字段一致。
+>
+> **时间戳规约**：业务实体默认带创建/更新时间戳两列（命名沿用项目惯例，如 `create_time`/`update_time`）；纯字典/只读/中间表可豁免，但要注明原因（如 `EXAM_SLOT_DEPART：纯关联表，无需时间戳`）。
 
 ## 详细设计
 〔按模块 / 接口 / 关键流程组织，不按实现单元——拆单元在 /spec-plan，那里反向引用本节〕
