@@ -29,7 +29,7 @@
 项目级**原则的单一来源**：`docs/engineering/constitution.md`。它集中沉淀这套方法的不可妥协原则（单一事实源、先文档后代码、续编不重排、覆盖矩阵、显式非目标/NFR、右尺寸、阶段交接），六个 skill 执行前都读它并以它为准——各 skill 的「核心原则」只是它的精简内置默认。
 
 - **优先级**：`constitution.md`（原则）> `docs/engineering/workflow.md`（流程/阶段标准）> skill 内置默认。
-- **初始化**：新项目把**工程宪法 + 流程总纲**一次装进项目——在项目根目录运行（skill 已装到用户级时）：
+- **初始化**：新项目把**工程宪法 + 流程总纲 + 编码规约（CLAUDE.md）**一次装进项目——在项目根目录运行（skill 已装到用户级时）：
   - **Windows（PowerShell）**：
     ```powershell
     powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1"
@@ -41,7 +41,7 @@
     ```
     > 覆盖已存在的加 `--force`。
 
-  它把 `spec-prd/templates/` 下的 `constitution.md`、`workflow.md` 复制到项目 `docs/engineering/`（缺失才建）。也可手动复制这两份模板；跑 `/spec-prd` 时若检测到缺失也会主动提示初始化。
+  它把 `spec-prd/templates/` 下的 `constitution.md`、`workflow.md` 复制到项目 `docs/engineering/`，`CLAUDE.md`（编码规约，含参阿里规约的命名/注释细则）复制到**项目根**（缺失才建）。也可手动复制这三份模板；跑 `/spec-prd` 时若检测到缺失也会主动提示初始化。
 - **演进**：通过 PR/评审修订，提升其 `version`。
 
 ## 链路与阶段命令
