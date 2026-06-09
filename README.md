@@ -2,6 +2,8 @@
 
 一套 spec-driven（规范驱动）的 Claude Code skill，把研发流程「**需求 → 原型 → 设计 → 计划 → 变更**」固化为可复用命令。跨项目通用：每个 skill 优先读取项目自身的流程文档（`docs/engineering/workflow.md`、`prototype/_spec.md`、`docs/README.md`、`CLAUDE.md`）作为单一事实源，新项目则用内置默认规范。
 
+> 演进记录见 [`CHANGELOG.md`](CHANGELOG.md)。
+
 ## 六个 skill
 
 | 命令 | 阶段 | 输入 → 输出 | 落点 |
