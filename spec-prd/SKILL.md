@@ -62,7 +62,7 @@ argument-hint: "[原始需求 / 特性意图，可留空由我追问]"
    - `docs/engineering/workflow.md` —— 阶段 1「完成标准」与「命名与追溯约定」。
    - `docs/README.md` —— 目录结构与文件命名。
    - `docs/product/prd/` 现有 PRD —— 确定下一个 `NNN` 序号、沿用既有编号字母（R 还是 F）。
-   - 若都不存在（新项目）→ 用内置默认约定，并提示：「该项目还没有 docs 流程骨架，要不要我先建 `docs/product/prd|brainstorms`、`docs/engineering/prototype|design|plans`，并初始化 `docs/engineering/constitution.md`（工程宪法）+ `docs/engineering/workflow.md`（流程总纲）？」初始化这两份可直接跑本 skill 目录的 `init-project.ps1`（Windows）/ `init-project.sh`（macOS/Linux）——它把 `templates/constitution.md`、`templates/workflow.md` 复制到项目 `docs/engineering/`（缺失才建，`-Force`/`--force` 覆盖）；或手动复制这两份模板。
+   - 若都不存在（新项目）→ 用内置默认约定，并提示：「该项目还没有 docs 流程骨架，要不要我先建 `docs/product/prd|brainstorms`、`docs/engineering/prototype|design|plans`，并初始化 `docs/engineering/constitution.md`（工程宪法）+ `docs/engineering/workflow.md`（流程总纲）+ 项目根 `CLAUDE.md`（编码规约）？」初始化这三份可直接跑本 skill 目录的 `init-project.ps1`（Windows）/ `init-project.sh`（macOS/Linux）——它把 `templates/` 下的 `constitution.md`、`workflow.md` 复制到 `docs/engineering/`、`CLAUDE.md` 复制到项目根（缺失才建，`-Force`/`--force` 覆盖）；或手动复制这三份模板。
 2. **判定**：本需求是「已有特性的增量改动」还是「全新特性」？
    - 属于某个已有 PRD 的主题 → **停下**，告知这是变更，建议改用 `/spec-change`（复用原 `NNN`、续编 `R/F`、就地扩 PRD）。
    - 全新特性 → 取新序号 `NNN = 现有最大序号 + 1`。
