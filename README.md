@@ -28,10 +28,18 @@
 
 - **优先级**：`constitution.md`（原则）> `docs/engineering/workflow.md`（流程/阶段标准）> skill 内置默认。
 - **初始化**：新项目把**工程宪法 + 流程总纲**一次装进项目——在项目根目录运行（skill 已装到用户级时）：
-  - **Windows**：`& "$HOME\.claude\skills\spec-prd\init-project.ps1"`
-  - **macOS / Linux**：`"$HOME/.claude/skills/spec-prd/init-project.sh"`
+  - **Windows（PowerShell）**：
+    ```powershell
+    powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1"
+    ```
+    > `-ExecutionPolicy Bypass` 是**临时授权，仅对这一次调用生效**，不改系统设置（规避 `Restricted` 策略禁止跑脚本）。覆盖已存在的加 `-Force`。
+  - **macOS / Linux（bash）**：
+    ```bash
+    "$HOME/.claude/skills/spec-prd/init-project.sh"
+    ```
+    > 覆盖已存在的加 `--force`。
 
-  它把 `spec-prd/templates/` 下的 `constitution.md`、`workflow.md` 复制到项目 `docs/engineering/`（缺失才建，加 `-Force` / `--force` 覆盖）。也可手动复制这两份模板；跑 `/spec-prd` 时若检测到缺失也会主动提示初始化。
+  它把 `spec-prd/templates/` 下的 `constitution.md`、`workflow.md` 复制到项目 `docs/engineering/`（缺失才建）。也可手动复制这两份模板；跑 `/spec-prd` 时若检测到缺失也会主动提示初始化。
 - **演进**：通过 PR/评审修订，提升其 `version`。
 
 ## 链路与阶段命令
