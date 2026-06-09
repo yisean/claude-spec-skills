@@ -58,13 +58,53 @@
 
   > DB 声明值可因库而异，但「业务字符数」与前后端校验恒为同一个数。
 
-## 五、前端规范（按技术栈细化，如适用）
+## 五、前端规范（参阿里前端规约 + 框架官方 Style Guide，按 `<前端栈>` 取用）
 
-- 组件单一职责，公共逻辑抽通用组件 / hooks；组件 props 定义类型/默认值/校验。
-- 统一封装请求（拦截器/Token/超时/错误/Loading）；高频操作防抖节流、防重复提交。
-- 样式作用域化，禁全局污染；长列表分页/虚拟滚动。
-- **输入框 `maxlength` 严格等于 DB 字段字符数**（constitution #9）。
-- **UI 以 `docs/engineering/prototype/` 对应页面为基线**；偏离先走 `/spec-change` 改原型。
+### 1. 命名
+- **组件名**：`PascalCase` 且**多词**（避免与 HTML 元素冲突，如 `UserCard` 不用 `Card`）；组件文件 `PascalCase.vue` 或 `index.vue`（随项目）。
+- **目录 / 普通文件**：`kebab-case`（小写中划线）。
+- **变量 / 函数**：`camelCase`；**常量** `UPPER_SNAKE_CASE`；布尔变量加 `is/has/can` 前缀；私有成员 `_` 前缀。
+- **CSS class**：`kebab-case` 或 BEM（`block__element--modifier`）；不用 id 选择器写样式。
+- 杜绝拼音/无意义缩写（同后端命名精神）。
+
+### 2. 代码格式（ESLint + Prettier，统一，提交前 `lint`）
+- 缩进 / 引号 / 分号 / 尾逗号 / 行宽以项目 `.eslintrc` + `.prettierrc` 为准〔本项目：`<2 空格 / 单引号 / 无分号…>`〕；**不手动对抗 formatter**。
+- import 分组排序：第三方库 → 别名（`@/`）→ 相对路径。
+
+### 3. JavaScript / ES
+- `const` 优先、`let` 次之，**禁 `var`**；用 `===` 不用 `==`。
+- 善用解构、模板字符串、箭头函数、可选链 `?.` / 空值合并 `??`。
+- **魔法值抽常量**（同后端「零魔法值」）；异步用 `async/await` + `try-catch`，不裸吞错误。
+
+### 4. 组件
+- **单一职责**：一个组件只做一件事；公共逻辑抽通用组件 / `mixin` / `composable`（hooks）。
+- **Vue**：`props` 定义 `type/required/default/validator`；`data` 必须是函数；`v-for` 必带稳定 `key` 且**不与 `v-if` 同元素**；组件选项顺序固定（`name/components/props/data/computed/watch/生命周期/methods`）；模板表达式保持简单，复杂逻辑入 `computed`；自定义事件名 `kebab-case`。
+- **React**：函数组件 + Hooks；列表 `key` 稳定；`props` 用 TS / PropTypes；副作用进 `useEffect` 并清理；避免在 render 内新建函数 / 对象导致重渲染。
+
+### 5. 状态与请求
+- 全局状态用状态管理工具（Vuex / Pinia / Redux），**模块化 + 命名空间**；局部状态留组件内，不滥用全局。
+- **统一封装请求**（拦截器 / Token / 超时 / 错误提示 / Loading）；高频操作**防抖节流**、**防重复提交**；不在代码里写 host，走代理 / 环境变量。
+
+### 6. 样式
+- **作用域化**（`scoped` / CSS Modules），禁全局污染；用预处理器变量（SCSS / Less），不散落硬编码色值。
+- 避免 `!important` 与过深选择器；类名 `kebab-case` / BEM。
+
+### 7. 性能
+- 路由 / 重组件**懒加载**；长列表分页或**虚拟滚动**；图片懒加载；UI 库**按需引入**。
+- 避免无效监听、重复请求、不必要的重渲染。
+
+### 8. 安全
+- **XSS**：慎用 `v-html` / `dangerouslySetInnerHTML`，必须转义不可信内容；不拼接不可信 URL。
+- 敏感信息（token、个人隐私）不打前端日志、不长存 `localStorage`。
+
+### 9. 注释（同后端「注释即文档」精神）
+- 组件标注用途、`props` / `emit` 说明；复杂逻辑注释「为什么」；`TODO`/`FIXME` 带责任人与时间。
+
+### 10. 字段与校验
+- **输入框 `maxlength` 严格等于字段的业务字符数**（constitution #9）；表单校验文案标准化（如「最多 N 个字符」）。
+
+### 11. UI 以原型为准（铁律）
+- **对照 `docs/engineering/prototype/` 对应页面用真组件还原**（布局 / 字段 / 状态 / 交互 / 文案），不照抄原型 HTML/CSS；偏离先走 `/spec-change` 改原型再改代码。
 
 ## 六、提交与协作（承接 workflow 阶段 8）
 
