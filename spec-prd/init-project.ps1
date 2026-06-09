@@ -1,8 +1,9 @@
 ﻿# 把 spec-* 的工程骨架文件初始化到当前项目（constitution.md + workflow.md）
 # 用法（在目标项目根目录运行）：
-#   & "$HOME\.claude\skills\spec-prd\init-project.ps1"              # 缺失才建，不覆盖
-#   & "$HOME\.claude\skills\spec-prd\init-project.ps1" -Force       # 覆盖已存在的
-#   & "$HOME\.claude\skills\spec-prd\init-project.ps1" -ProjectRoot D:\path\to\proj
+# 注：-ExecutionPolicy Bypass 为临时授权，仅对本次调用生效、不改系统设置（规避 Restricted 策略禁止跑脚本）。
+#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1"            # 缺失才建，不覆盖
+#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1" -Force     # 覆盖已存在的
+#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1" -ProjectRoot D:\path\to\proj
 param(
     [string]$ProjectRoot = (Get-Location).Path,
     [switch]$Force
