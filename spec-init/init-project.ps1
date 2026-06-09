@@ -4,9 +4,9 @@
 #   CLAUDE.md                        （项目根：编码规约，AI 自动加载）
 # 用法（在目标项目根目录运行）：
 # 注：-ExecutionPolicy Bypass 为临时授权，仅对本次调用生效、不改系统设置（规避 Restricted 策略禁止跑脚本）。
-#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1"            # 缺失才建，不覆盖
-#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1" -Force     # 覆盖已存在的
-#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1" -ProjectRoot D:\path\to\proj
+#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-init\init-project.ps1"            # 缺失才建，不覆盖
+#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-init\init-project.ps1" -Force     # 覆盖已存在的
+#   powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-init\init-project.ps1" -ProjectRoot D:\path\to\proj
 param(
     [string]$ProjectRoot = (Get-Location).Path,
     [switch]$Force

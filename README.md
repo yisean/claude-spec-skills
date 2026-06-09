@@ -32,16 +32,18 @@
 - **初始化**：新项目把**工程宪法 + 流程总纲 + 编码规约（CLAUDE.md）**一次装进项目——在项目根目录运行（skill 已装到用户级时）：
   - **Windows（PowerShell）**：
     ```powershell
-    powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-prd\init-project.ps1"
+    powershell -ExecutionPolicy Bypass -File "$HOME\.claude\skills\spec-init\init-project.ps1"
     ```
     > `-ExecutionPolicy Bypass` 是**临时授权，仅对这一次调用生效**，不改系统设置（规避 `Restricted` 策略禁止跑脚本）。覆盖已存在的加 `-Force`。
   - **macOS / Linux（bash）**：
     ```bash
-    "$HOME/.claude/skills/spec-prd/init-project.sh"
+    "$HOME/.claude/skills/spec-init/init-project.sh"
     ```
     > 覆盖已存在的加 `--force`。
 
-  它把 `spec-prd/templates/` 下的 `constitution.md`、`workflow.md` 复制到项目 `docs/engineering/`，`CLAUDE.md`（编码规约，含参阿里规约的命名/注释细则）复制到**项目根**（缺失才建）。也可手动复制这三份模板；跑 `/spec-prd` 时若检测到缺失也会主动提示初始化。
+  它把 `spec-init/templates/` 下的 `constitution.md`、`workflow.md` 复制到项目 `docs/engineering/`，`CLAUDE.md`（编码规约，含参阿里规约的命名/注释细则）复制到**项目根**（缺失才建）。也可手动复制这三份模板；跑 `/spec-prd` 时若检测到缺失也会主动提示初始化。
+
+  > 脚手架（宪法 / 流程 / 编码规约 + init 脚本）独立放在 [`spec-init/`](spec-init/) 资源包里——它不是斜杠命令，只是随 `install` 一起装到用户级供初始化用，与 6 个 skill 区分开。
 - **演进**：通过 PR/评审修订，提升其 `version`。
 
 ## 链路与阶段命令
@@ -112,25 +114,25 @@ clone 本仓库后，在仓库根目录运行：
   ./install.sh
   ```
 
-脚本会把六个 `spec-*` 目录复制到 `~/.claude/skills/`。
+脚本会把六个 `spec-*` skill 目录 + `spec-init` 脚手架包复制到 `~/.claude/skills/`。
 
 ### 方式 B：项目级（团队随仓库共享）
 
-把六个 skill 目录复制到目标项目的 `.claude/skills/` 下并提交：
+把六个 skill 目录（+ `spec-init` 脚手架包）复制到目标项目的 `.claude/skills/` 下并提交：
 
 - **Windows**：
   ```powershell
-  Copy-Item -Recurse -Force .\spec-prd, .\spec-prototype, .\spec-design, .\spec-plan, .\spec-change, .\spec-check <目标项目>\.claude\skills\
+  Copy-Item -Recurse -Force .\spec-prd, .\spec-prototype, .\spec-design, .\spec-plan, .\spec-change, .\spec-check, .\spec-init <目标项目>\.claude\skills\
   ```
 - **macOS / Linux**：
   ```bash
   mkdir -p <目标项目>/.claude/skills
-  cp -R spec-prd spec-prototype spec-design spec-plan spec-change spec-check <目标项目>/.claude/skills/
+  cp -R spec-prd spec-prototype spec-design spec-plan spec-change spec-check spec-init <目标项目>/.claude/skills/
   ```
 
 ### 方式 C：手动
 
-把 `spec-prd/`、`spec-prototype/`、`spec-design/`、`spec-plan/`、`spec-change/`、`spec-check/` 六个目录（每个含 `SKILL.md`）放到
+把 `spec-prd/`、`spec-prototype/`、`spec-design/`、`spec-plan/`、`spec-change/`、`spec-check/` 六个 skill 目录（每个含 `SKILL.md`）+ `spec-init/`（脚手架包，无命令）放到
 `~/.claude/skills/`（用户级）或 `<repo>/.claude/skills/`（项目级）即可。
 
 ### 生效
@@ -152,7 +154,7 @@ clone 本仓库后，在仓库根目录运行：
 
 ## 卸载
 
-删除 `~/.claude/skills/` 下（或项目 `.claude/skills/` 下）的 `spec-prd`、`spec-prototype`、`spec-design`、`spec-plan`、`spec-change`、`spec-check` 六个目录，重启 Claude Code。
+删除 `~/.claude/skills/` 下（或项目 `.claude/skills/` 下）的 `spec-prd`、`spec-prototype`、`spec-design`、`spec-plan`、`spec-change`、`spec-check` 六个目录 + `spec-init`，重启 Claude Code。
 
 ## 为什么「设计」是一份文档（概要 + ER + 详细，不拆开）
 

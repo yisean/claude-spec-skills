@@ -4,9 +4,9 @@
 #   docs/engineering/workflow.md    （流程总纲）
 #   CLAUDE.md                        （项目根：编码规约，AI 自动加载）
 # 用法（在目标项目根目录运行）：
-#   "$HOME/.claude/skills/spec-prd/init-project.sh"            # 缺失才建，不覆盖
-#   "$HOME/.claude/skills/spec-prd/init-project.sh" --force    # 覆盖已存在的
-#   "$HOME/.claude/skills/spec-prd/init-project.sh" --project /path/to/proj
+#   "$HOME/.claude/skills/spec-init/init-project.sh"            # 缺失才建，不覆盖
+#   "$HOME/.claude/skills/spec-init/init-project.sh" --force    # 覆盖已存在的
+#   "$HOME/.claude/skills/spec-init/init-project.sh" --project /path/to/proj
 set -euo pipefail
 
 project_root="$(pwd)"
