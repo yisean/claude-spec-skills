@@ -76,7 +76,7 @@
 
 本套件**核心的六个 `spec-*`**（需求/原型/设计/计划/变更/校验）可**独立运行**，不强依赖任何插件。
 
-但若要跑**完整流水线**，需先安装 [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) 插件——它提供链路 ④–⑦ 调用的 `ce-*` 命令，以及 `/spec-prd` 阶段可选的 `/ce-brainstorm`、`/ce-doc-review`：
+但若要跑**完整流水线**，需先安装 [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) 插件——它提供链路 ⑤–⑧ 调用的 `ce-*` 命令，以及 `/spec-prd` 阶段可选的 `/ce-brainstorm`、`/ce-doc-review`：
 
 | 用到 compound-engineering 的地方 | 涉及命令 | 是否必需 |
 | --- | --- | --- |
@@ -93,7 +93,7 @@
 /plugin install compound-engineering
 ```
 
-> 若你的 compound-engineering 来自其它市场/仓库，把上面的市场地址换成实际来源即可。只用 `spec-*` 写文档、不跑 ④–⑦ 的话，可跳过本节。
+> 若你的 compound-engineering 来自其它市场/仓库，把上面的市场地址换成实际来源即可。只用 `spec-*` 写文档、不跑 ⑤–⑧ 的话，可跳过本节。
 
 ## 安装
 
