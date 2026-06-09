@@ -7,8 +7,10 @@
 
 -- 示例：新增预约名额表（与 ER 的 EXAM_BOOKING 对应）
 -- 时间戳规约：业务表带 create_time + update_time（命名沿用项目惯例）
--- 字段长度规约：varchar(N) 的 N=字符数（utf8mb4 下 N 个汉字），按业务最大汉字数定义、不按字节；
---             该字符数与设计标注、后端校验、前端 maxLength 一致。
+-- 字段长度规约：业务最大字符数为唯一真值，与设计标注、后端校验、前端 maxLength 一致。
+--             下例为 MySQL（utf8mb4 按字符，varchar(N)=N 字符）；非 MySQL 按目标库声明语义
+--             （SQL Server nvarchar、Oracle varchar2(N CHAR)、达梦 LENGTH_IN_CHAR…见 constitution #9）。
+--             生成 SQL 前若项目未记录用哪种库，先问用户确认。
 CREATE TABLE IF NOT EXISTS exam_booking (
   id           BIGINT       PRIMARY KEY AUTO_INCREMENT,
   slot_id      BIGINT       NOT NULL,
