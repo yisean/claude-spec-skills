@@ -37,6 +37,7 @@ argument-hint: "[NNN 序号 / PRD 路径 / 特性名，可留空由我取最近 
    - `docs/engineering/plans/…-NNN-*.md`
    - `docs/ops/install/migration-*.sql`
 3. 读 `docs/engineering/constitution.md`（工程宪法 / 原则）与 `docs/engineering/workflow.md`（命名与追溯约定）作为最高判据（存在则覆盖下面的内置默认）。
+4. 体检以**本特性单一 NNN** 为主；唯有 C16「跨特性引用一致」会按需到全 `docs/` 做文本检索、读别的 NNN 产出物——但仍是**只读**，不改任何文件。
 
 ### Phase 1 · 抽取编号与映射
 
@@ -66,6 +67,7 @@ argument-hint: "[NNN 序号 / PRD 路径 / 特性名，可留空由我取最近 
 | C13 | **时间戳规约**（有 migration 时）：新建**业务表**带创建/更新时间戳两列（命名沿用项目惯例，如 `create_time`/`update_time`）；豁免的表（字典/只读/中间表）在设计或脚本里注明原因 | 缺时间戳且无豁免说明=WARN |
 | C14 | **字段长度一致**（有 design + migration 时）：设计/接口契约标注了字符串字段的最大字符数；migration 的列长与之一致（按所选库语义：MySQL `varchar(N)` 按字符 / Oracle `varchar2(N CHAR)` / 达梦 等，见 `constitution` #9） | 漏标或与列长不一致=WARN |
 | C15 | **设计章节完整**（有 design 时，涉及才查）：涉及界面的特性 design 有「前端设计」节；占名额/高频写场景有「并发与幂等」；多角色特性有「权限」相关设计 | 该有却缺=WARN |
+| C16 | **跨特性引用一致**（事后兜底）：本特性**对外暴露**的接口/表/字段/共享原型组件，去全 `docs/` 检索是否有**别的 NNN** 仍引用了已不存在或已改签名的旧版本；本特性**对外依赖**的接口/表，确认对方 NNN 现状仍提供 | 悬空跨特性引用=WARN |
 
 ### Phase 3 · 输出体检报告
 
