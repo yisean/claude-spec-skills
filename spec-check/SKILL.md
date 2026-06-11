@@ -36,7 +36,8 @@ argument-hint: "[NNN 序号 / PRD 路径 / 特性名，可留空由我取最近 
    - `docs/engineering/design/…-NNN-*.md`（技术设计：架构/接口/ER/详细设计）
    - `docs/engineering/plans/…-NNN-*.md`
    - `docs/ops/install/migration-*.sql`
-3. 读 `docs/engineering/constitution.md`（工程宪法 / 原则）与 `docs/engineering/workflow.md`（命名与追溯约定）作为最高判据（存在则覆盖下面的内置默认）。
+3. 读 `docs/engineering/constitution.md`（工程宪法 / 原则）与 `docs/engineering/workflow.md`（命名与追溯约定）作为最高判据（存在则覆盖下面的内置默认）；读 `docs/engineering/registry.md`（NNN 取号登记表，供 C8b 核对）。
+4. 体检以**本特性单一 NNN** 为主；唯有 C16「跨特性引用一致」会按需到全 `docs/` 做文本检索、读别的 NNN 产出物——但仍是**只读**，不改任何文件。
 
 ### Phase 1 · 抽取编号与映射
 
@@ -59,6 +60,7 @@ argument-hint: "[NNN 序号 / PRD 路径 / 特性名，可留空由我取最近 
 | C6 | **验证闭环**（有 plan 时）：每个 `U` 的 Test scenarios 指向存在的 `AE/AC` | WARN |
 | C7 | **NFR 在位**：PRD 有「非功能约束」节（无则该节显式写「无特殊要求」也算通过） | WARN |
 | C8 | **跨文档一致**：prd / design / plan / migration 同 `NNN`；frontmatter `status` 合理（如 plan 已 done 但 PRD 还 active 要提示）；`origin` 链 plan→design→prd 指向真实存在的文件或写了来源简述 | 不一致=WARN |
+| C8b | **取号登记一致**（有 `registry.md` 时）：本特性 `NNN` 在 `docs/engineering/registry.md` 有登记、且该号未被两条记录重复占用；status 与 PRD/plan 现状不矛盾（如特性已交付但登记仍 `reserved`）。registry 缺失则标「未建登记表」并提示多人协作建议补上 | 号未登记/被重复占用=FAIL；status 不符=WARN |
 | C9 | **原型覆盖**（有原型时）：每条 **UI 相关** `R/F` 有对应页面，且页面都挂进了 `index.html` | 缺页面=WARN |
 | C10 | **数据一致**（有 design + plan 时）：**设计**的 ER 模型实体/字段与 migration sql 的表大致对得上（粗检字段/表名） | WARN |
 | C11 | **设计落地**（有 plan 时）：有设计文档；每个 `U` 的「设计依据」指向设计里真实存在的小节；设计的接口清单覆盖的 `R/F` 都进了某个 `U` | 缺设计=WARN；悬空设计依据=WARN |
@@ -66,6 +68,7 @@ argument-hint: "[NNN 序号 / PRD 路径 / 特性名，可留空由我取最近 
 | C13 | **时间戳规约**（有 migration 时）：新建**业务表**带创建/更新时间戳两列（命名沿用项目惯例，如 `create_time`/`update_time`）；豁免的表（字典/只读/中间表）在设计或脚本里注明原因 | 缺时间戳且无豁免说明=WARN |
 | C14 | **字段长度一致**（有 design + migration 时）：设计/接口契约标注了字符串字段的最大字符数；migration 的列长与之一致（按所选库语义：MySQL `varchar(N)` 按字符 / Oracle `varchar2(N CHAR)` / 达梦 等，见 `constitution` #9） | 漏标或与列长不一致=WARN |
 | C15 | **设计章节完整**（有 design 时，涉及才查）：涉及界面的特性 design 有「前端设计」节；占名额/高频写场景有「并发与幂等」；多角色特性有「权限」相关设计 | 该有却缺=WARN |
+| C16 | **跨特性引用一致**（事后兜底）：本特性**对外暴露**的接口/表/字段/共享原型组件，去全 `docs/` 检索是否有**别的 NNN** 仍引用了已不存在或已改签名的旧版本；本特性**对外依赖**的接口/表，确认对方 NNN 现状仍提供 | 悬空跨特性引用=WARN |
 
 ### Phase 3 · 输出体检报告
 

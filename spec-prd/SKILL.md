@@ -61,11 +61,17 @@ argument-hint: "[原始需求 / 特性意图，可留空由我追问]"
    - `docs/engineering/constitution.md` —— 工程宪法（不可妥协原则），最高优先级。
    - `docs/engineering/workflow.md` —— 阶段 1「完成标准」与「命名与追溯约定」。
    - `docs/README.md` —— 目录结构与文件命名。
-   - `docs/product/prd/` 现有 PRD —— 确定下一个 `NNN` 序号、沿用既有编号字母（R 还是 F）。
+   - `docs/engineering/registry.md` —— **NNN 取号登记表**（多人协作下保证序号唯一的单一事实源），读出你为本特性预留的 `NNN`。
+   - `docs/product/prd/` 现有 PRD —— 沿用既有编号字母（R 还是 F），并与 registry 交叉确认 NNN 没被占用。
    - 若都不存在（新项目）→ 用内置默认约定，并提示：「该项目还没有 docs 流程骨架，要不要我先建 `docs/product/prd|brainstorms`、`docs/engineering/prototype|design|plans`，并初始化 `docs/engineering/constitution.md`（工程宪法）+ `docs/engineering/workflow.md`（流程总纲）+ 项目根 `CLAUDE.md`（编码规约）？」初始化这三份用 **`spec-init`** 资源包的脚本：`~/.claude/skills/spec-init/init-project.ps1`（Windows）/ `init-project.sh`（macOS/Linux）——它把 `spec-init/templates/` 下的 `constitution.md`、`workflow.md` 复制到 `docs/engineering/`、`CLAUDE.md` 复制到项目根（缺失才建，`-Force`/`--force` 覆盖）；或手动复制这三份模板。
 2. **判定**：本需求是「已有特性的增量改动」还是「全新特性」？
    - 属于某个已有 PRD 的主题 → **停下**，告知这是变更，建议改用 `/spec-change`（复用原 `NNN`、续编 `R/F`、就地扩 PRD）。
-   - 全新特性 → 取新序号 `NNN = 现有最大序号 + 1`。
+   - 全新特性 → **取号走「先登记后开工」**（见下）。
+
+   **NNN 取号约定（多人协作必读）**：序号分配必须发生在共享的 main 上、且在开特性分支之前——否则各自分支里 `max+1` 互相看不见，合并才撞车。
+   - **标准做法**：先在最新的 main 上往 `docs/engineering/registry.md` 追加一行 `reserved`（`| NNN | slug | owner | date | reserved |`），push 进 main（仅这一行，可免 PR）；并发抢号时后 push 者会被拒/冲突，当场暴露，改取下一个号。**号一经预留即作废不回收**（回收会打断历史引用）。然后开 `feat/NNN-slug` 分支再跑本 skill，直接用登记好的 NNN。
+   - **registry 不存在时**（老项目/未初始化）：退回 `NNN = 现有最大序号 + 1`，并提示「多人协作建议建 `docs/engineering/registry.md` 先登记后开工，避免并行取号撞号」。
+   - 详见 `docs/engineering/workflow.md`「取号约定」节。
 
 ### Phase 1 · 澄清（按需，右尺寸）
 
