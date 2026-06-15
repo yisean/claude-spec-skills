@@ -156,6 +156,35 @@ clone 本仓库后，在仓库根目录运行：
 
 不带参数时只复制+暂存并显示改动（便于先 review 再提交）。
 
+## 安全护栏（Claude Code hooks）
+
+本仓库的 `.claude/` 里随包带了一套 **Claude Code 安全配置**，与 spec-* skill 相互独立——目的是给「让 Claude 跑命令/改文件」加一层护栏，**克隆即用**，不需要单独安装。
+
+```
+.claude/
+├── settings.json   # permissions 护栏 + hooks 配置（团队共享）
+└── hooks/          # 四个 PowerShell 脚本（纯 ASCII）
+```
+
+**permissions 护栏**（优先级 `deny > ask > allow`）：
+
+| 类别 | 行为 | 覆盖 |
+| --- | --- | --- |
+| `deny` | 直接拦截 | 不可逆命令：递归强删、`dd`、`mkfs`、force push、`git reset --hard`、`Remove-Item -Recurse/-Force` 等 |
+| `ask` | 强制确认 | 对外/高风险：`git push`、`npm publish`、`docker push`、`kubectl delete`、`terraform apply/destroy`、关机/重启 |
+
+**hooks**（事件触发，比静态前缀规则更严密）：
+
+| hook | 事件 | 作用 |
+| --- | --- | --- |
+| `block-dangerous-commands` | PreToolUse `Bash\|PowerShell` | 正则全文扫描命令并拦截危险写法（含路径在前、复合命令、`curl\|sh`）；扫描前剥离引号内字符串，避免「提交信息/echo 里提到危险字样」被误拦 |
+| `protect-sensitive-files` | PreToolUse `Write\|Edit` | 拦截对 `.env`、私钥、`.ssh` 等秘密文件的写改（放过 `.env.example`） |
+| `snapshot-baseline` + `summarize-changes` | SessionStart + Stop | 会话结束时汇总本次改动的文件 |
+
+- **生效**：打开并信任目录后自动加载；首次可能需打开一次 `/hooks` 或重启。脚本路径用 `$env:CLAUDE_PROJECT_DIR` 引用，任意克隆都能解析。
+- **个人配置**：`.claude/settings.local.json`（本机私有 allow 偏好）已被 `.gitignore` 排除，不随仓库分发。
+- **可移植性**：hook 为 PowerShell 脚本（`shell: "powershell"`）。Windows 直接可用；macOS / Linux 协作者需安装 `pwsh`（PowerShell Core），或自行补 bash 版。
+
 ## 卸载
 
 删除 `~/.claude/skills/` 下（或项目 `.claude/skills/` 下）的 `spec-prd`、`spec-prototype`、`spec-design`、`spec-plan`、`spec-change`、`spec-check` 六个目录 + `spec-init`，重启 Claude Code。
