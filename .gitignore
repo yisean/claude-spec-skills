@@ -1,3 +1,6 @@
 
 # 外部参考文档，不纳入分发
 Claude Code 全链路开发企业级Skill*.md
+
+# 个人级 Claude Code 配置（含本机私有 allow 偏好），不分发
+.claude/settings.local.json
